@@ -1,0 +1,22 @@
+Use the Function Get-AWSIngressRules to return all the security groups for a given region and profile to a variable:
+
+```
+$SecurityGroups = Get-AWSIngressRules -Region us-east-1 -ProfileName 'My-AWS-Profile'
+```
+
+You can then sort and return subsets of data based on what you are interested in finding.
+
+Securitygroups where rules are open to 0.0.0.0/0
+
+$SecurityGroups | where {$_.OpenRule -eq 'TRUE'}
+
+
+Securitygroups where rules are open to 0.0.0.0/0 for high-risk ports (in this example port 22(SSH)
+```
+$SecurityGroups | where {$_.OpenRule -eq 'TRUE' -and $_.FromPort -eq '22' }
+```
+
+Securitygroups that may be unused (no instances, not used by ELBs or RDS)
+```
+$SecurityGroups | where {$_.NumberInstances -eq '0' -and $_.ELBsInGroup -eq 'NONE' -and $_.RDSGroups -eq 'NONE' }
+```
