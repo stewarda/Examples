@@ -1,6 +1,6 @@
 Use the Function Get-AWSIngressRules to return all the security groups for a given region and profile to a variable:
 
-```
+```Powershell
 $SecurityGroups = Get-AWSIngressRules -Region us-east-1 -ProfileName 'My-AWS-Profile'
 ```
 
